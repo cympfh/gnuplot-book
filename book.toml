@@ -1,0 +1,12 @@
+[book]
+authors = ["cympfh"]
+language = "ja"
+multilingual = false
+src = "src"
+title = "gnuplot-book"
+
+[output.html]
+mathjax-support = true
+
+[build]
+build-dir = "./docs"

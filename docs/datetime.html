@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>日付時刻データ - gnuplot-book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> gnuplot-book</a></li><li class="chapter-item expanded "><a href="2.html"><strong aria-hidden="true">2.</strong> データブロック</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="datablock/index.html"><strong aria-hidden="true">2.1.</strong> index</a></li><li class="chapter-item expanded "><a href="datablock/every.html"><strong aria-hidden="true">2.2.</strong> every</a></li></ol></li><li class="chapter-item expanded "><a href="3.html"><strong aria-hidden="true">3.</strong> データの入力</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="datainput/inline.html"><strong aria-hidden="true">3.1.</strong> インラインデータ</a></li><li class="chapter-item expanded "><a href="datainput/shell.html"><strong aria-hidden="true">3.2.</strong> シェルの実行</a></li></ol></li><li class="chapter-item expanded "><a href="datetime.html" class="active"><strong aria-hidden="true">4.</strong> 日付時刻データ</a></li><li class="chapter-item expanded "><a href="5.html"><strong aria-hidden="true">5.</strong> 装飾</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="style/xtics.html"><strong aria-hidden="true">5.1.</strong> xtics</a></li><li class="chapter-item expanded "><a href="style/pointinterval.html"><strong aria-hidden="true">5.2.</strong> pointinterval</a></li><li class="chapter-item expanded "><a href="style/awesome.html"><strong aria-hidden="true">5.3.</strong> awesome style</a></li></ol></li><li class="chapter-item expanded "><a href="fit.html"><strong aria-hidden="true">6.</strong> 曲線の近似</a></li><li class="chapter-item expanded "><a href="7.html"><strong aria-hidden="true">7.</strong> プロット</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="plot/scatter.html"><strong aria-hidden="true">7.1.</strong> 散布図</a></li><li class="chapter-item expanded "><a href="plot/histogram.html"><strong aria-hidden="true">7.2.</strong> ヒストグラム</a></li><li class="chapter-item expanded "><a href="plot/box.html"><strong aria-hidden="true">7.3.</strong> 箱ひげ図</a></li><li class="chapter-item expanded "><a href="plot/errorbars.html"><strong aria-hidden="true">7.4.</strong> エラーバー</a></li><li class="chapter-item expanded "><a href="plot/implicit.html"><strong aria-hidden="true">7.5.</strong> 陰関数</a></li><li class="chapter-item expanded "><a href="plot/contour.html"><strong aria-hidden="true">7.6.</strong> 等高線</a></li><li class="chapter-item expanded "><a href="plot/heatmap.html"><strong aria-hidden="true">7.7.</strong> ヒートマップ</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">gnuplot-book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#日付時刻データ" id="日付時刻データ">日付時刻データ</a></h1>
+<p>よくあるシチュエーションは x 軸または y 軸のどちらか一方が日付時刻を表現していることだ. このとき, データには一種類のフォーマットで日付時刻が書かれていることになる. gnuplot はこれをサポートしていて, x/y 軸が日付時刻を表していることと, パースに用いるフォーマットを指定すれば読むことが出来る.</p>
+<p>本章の最後でも触れるが, 異なるデータフォーマットが混在している場合, 例えば x/y 軸両方ともが日付時刻であってそれぞれ違う書き方がなされている場合は, 出来なくはないが, 直接のサポートがなされてはいない.</p>
+<h2><a class="header" href="#日付時刻であることの宣言" id="日付時刻であることの宣言">日付時刻であることの宣言</a></h2>
+<p>x/y 軸それぞれについて日付時刻データであることは次で宣言する.</p>
+<pre><code class="language-bash">set xdata time
+set ydata time
+</code></pre>
+<h2><a class="header" href="#timefmt" id="timefmt">timefmt</a></h2>
+<p>日付時刻データだと宣言された値はデフォルトでは
+<code>&quot;%d/%m/%y,%H:%M&quot;</code>
+だとしてパースが行われる.
+このフォーマットは,</p>
+<pre><code class="language-bash">set timefmt &lt;format&gt;
+</code></pre>
+<p>として自由に宣言できる.</p>
+<p>また <code>xtics</code> <code>ytics</code> の表示に使うフォーマットは, これとは別に宣言できて, 次のようにする.</p>
+<pre><code class="language-bash">set format x &lt;format&gt;
+set format y &lt;format&gt;
+</code></pre>
+<p>この <code>&lt;format&gt;</code> は先程の <code>timefmt</code> で使う <code>&lt;format&gt;</code> と全く同じ形式で記述する.
+フォーマットは C 言語のように <code>%-</code> 指定子を含んだ文字列として指定する.</p>
+<h3><a class="header" href="#-指定子" id="-指定子"><code>%-</code>指定子</a></h3>
+<table><thead><tr><th>format</th><th>explanation</th></tr></thead><tbody>
+<tr><td><code>%d</code></td><td>日 (1-31)</td></tr>
+<tr><td><code>%m</code></td><td>月 (1-12)</td></tr>
+<tr><td><code>%y</code></td><td>年の下2桁 (0-99)</td></tr>
+<tr><td><code>%Y</code></td><td>年の4桁</td></tr>
+<tr><td><code>%j</code></td><td>day of the year (1-365)</td></tr>
+<tr><td><code>%H</code></td><td>時 (0-24)</td></tr>
+<tr><td><code>%M</code></td><td>分 (0-60)</td></tr>
+<tr><td><code>%S</code></td><td>秒 (0-60)</td></tr>
+<tr><td><code>%s</code></td><td>UNIX time</td></tr>
+<tr><td><code>%B</code></td><td>月の英語表記</td></tr>
+<tr><td><code>%b</code></td><td>月の英語表記 (3文字省略形)</td></tr>
+</tbody></table>
+<h3><a class="header" href="#note-using-キーワード" id="note-using-キーワード">NOTE. <code>using</code> キーワード</a></h3>
+<p>gnuplot は plot するデータを読むとき, 一行をホワイトスペース文字で分割して, これの何番目を x データ, 何番目を y データという風に使っている.
+ここで疑問になるのは, 空白文字を含む日付時刻データを表現できるのかということだ.
+問題なく出来る.
+<code>timefmt</code> には空白文字を含んだフォーマットを指定すればよい.
+ただし, plot コマンドは <code>using</code> を要請してくるかもしれない.
+これは明示的に何番目と何番目を x, y データにするかという指定である.</p>
+<p>次のようなデータを考える.</p>
+<pre><code>2020-01-02 13:00 3.141592
+</code></pre>
+<p>これは
+<code>'%Y-%m-%d %H:%M'</code>
+というフォーマットの日付の後ろに一つの数値が続いている.
+gnuplot はこのままでは3つの数値が並んでいると解釈する.</p>
+<p>そこで初めの二つが x のための一塊の日付データであることを宣言する.</p>
+<pre><code class="language-bash">set xdata time
+set timefmt '%Y-%m-%d %H:%M'
+</code></pre>
+<p>こうなるともともと二番目が y であるというデフォルトの設定が壊れるので,
+gnuplot はユーザーに明示することを求める.
+そこで, （もともとの分割で）1 番目が x で, 3 番目が y であると注釈して plot を行う.</p>
+<pre><code class="language-bash">plot 'data.txt' using 1:3
+</code></pre>
+<p>これで期待通りのプロットが得られた.</p>
+<h2><a class="header" href="#異なるフォーマットを共存させるには" id="異なるフォーマットを共存させるには">異なるフォーマットを共存させるには</a></h2>
+<p>x と y が異なるフォーマットの日付時刻データである,
+或いは複数のデータを同時にプロットさせるに当たって別のフォーマットが使われてるなどの場合,
+異なるフォーマットを指定したくなる.
+しかし <code>set timefmt</code> は設定を上書きするだけであって, x と y のパースに異なるフォーマットを与える事はできない.</p>
+<p>やや強引にやってやれないことはない.
+<a href="https://stackoverflow.com/a/31009235">https://stackoverflow.com/a/31009235</a>
+が参考になった.
+<code>using</code> の中で <code>strptime</code> 関数を直接呼び出せばよい.
+<code>gnuplot 5.0</code> 以上ならより簡素な <code>timecolumn</code> 関数の方が便利</p>
+<h3><a class="header" href="#example" id="example">Example</a></h3>
+<p><code>timecolumn</code> 関数を使って, x, y で別のフォーマットが使われているデータをプロットする.</p>
+<pre><code class="language-bash"># x = %Y-%m-%d
+# y = %H:%M:%S
+$data &lt;&lt; EOD
+2017-10-23 13:43:00
+2017-10-24 14:37:45
+2017-10-25 14:18:06
+2017-10-26 14:31:48
+2017-10-27 12:12:41
+2017-10-30 13:56:49
+EOD
+
+set xdata time
+set ydata time
+
+xformat = '%Y-%m-%d'  # parse format (for timecolumn)
+yformat = '%H:%M:%S'
+
+set format x '%m/%d'  # tics format
+set format y '%H:%M'
+
+plot $data using (timecolumn(1, xformat)):(timecolumn(2, yformat)) w lp
+</code></pre>
+<p><img src="https://i.imgur.com/2HtaPTU.png" alt="" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="datainput/shell.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="5.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="datainput/shell.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="5.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

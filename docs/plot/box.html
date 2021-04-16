@@ -1,0 +1,588 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>箱ひげ図 - gnuplot-book</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> gnuplot-book</a></li><li class="chapter-item expanded "><a href="../2.html"><strong aria-hidden="true">2.</strong> データブロック</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../datablock/index.html"><strong aria-hidden="true">2.1.</strong> index</a></li><li class="chapter-item expanded "><a href="../datablock/every.html"><strong aria-hidden="true">2.2.</strong> every</a></li></ol></li><li class="chapter-item expanded "><a href="../3.html"><strong aria-hidden="true">3.</strong> データの入力</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../datainput/inline.html"><strong aria-hidden="true">3.1.</strong> インラインデータ</a></li><li class="chapter-item expanded "><a href="../datainput/shell.html"><strong aria-hidden="true">3.2.</strong> シェルの実行</a></li></ol></li><li class="chapter-item expanded "><a href="../datetime.html"><strong aria-hidden="true">4.</strong> 日付時刻データ</a></li><li class="chapter-item expanded "><a href="../5.html"><strong aria-hidden="true">5.</strong> 装飾</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../style/xtics.html"><strong aria-hidden="true">5.1.</strong> xtics</a></li><li class="chapter-item expanded "><a href="../style/pointinterval.html"><strong aria-hidden="true">5.2.</strong> pointinterval</a></li><li class="chapter-item expanded "><a href="../style/awesome.html"><strong aria-hidden="true">5.3.</strong> awesome style</a></li></ol></li><li class="chapter-item expanded "><a href="../fit.html"><strong aria-hidden="true">6.</strong> 曲線の近似</a></li><li class="chapter-item expanded "><a href="../7.html"><strong aria-hidden="true">7.</strong> プロット</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../plot/scatter.html"><strong aria-hidden="true">7.1.</strong> 散布図</a></li><li class="chapter-item expanded "><a href="../plot/histogram.html"><strong aria-hidden="true">7.2.</strong> ヒストグラム</a></li><li class="chapter-item expanded "><a href="../plot/box.html" class="active"><strong aria-hidden="true">7.3.</strong> 箱ひげ図</a></li><li class="chapter-item expanded "><a href="../plot/errorbars.html"><strong aria-hidden="true">7.4.</strong> エラーバー</a></li><li class="chapter-item expanded "><a href="../plot/implicit.html"><strong aria-hidden="true">7.5.</strong> 陰関数</a></li><li class="chapter-item expanded "><a href="../plot/contour.html"><strong aria-hidden="true">7.6.</strong> 等高線</a></li><li class="chapter-item expanded "><a href="../plot/heatmap.html"><strong aria-hidden="true">7.7.</strong> ヒートマップ</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">gnuplot-book</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#箱ひげ図-boxplot-box-and-whisker-plot" id="箱ひげ図-boxplot-box-and-whisker-plot">箱ひげ図 (boxplot, box-and-whisker plot)</a></h1>
+<h2><a class="header" href="#参考" id="参考">参考</a></h2>
+<ul>
+<li><a href="http://gnuplot.info/demo/boxplot.html">http://gnuplot.info/demo/boxplot.html</a></li>
+<li><a href="https://ja.wikipedia.org/wiki/%E7%AE%B1%E3%81%B2%E3%81%92%E5%9B%B3">箱ひげ図 - Wikipedia</a></li>
+</ul>
+<h2><a class="header" href="#概要" id="概要">概要</a></h2>
+<p>\(\{ (\text{label}_i, z_i) \}_i\)
+\( (z_i \in \mathbb{R}) \) というデータ列から,
+次の図のような, いわゆる箱ひげ図を作成する.</p>
+<p><img src="https://i.imgur.com/3YPqnHs.png" alt="" /></p>
+<h2><a class="header" href="#手法" id="手法">手法</a></h2>
+<p><code>with boxplot</code> によって直接サポートされている.</p>
+<h2><a class="header" href="#data-format" id="data-format">Data Format</a></h2>
+<p>一列目にデータのラベル (またはカテゴリ) を文字列で与える.
+これに関してソートする必要はない.
+二列目にデータの実数値を与える.</p>
+<pre><code>Label_1 z1
+Label_2 z2
+:
+Label_n zn
+</code></pre>
+<h2><a class="header" href="#with-boxplot" id="with-boxplot"><code>with boxplot</code></a></h2>
+<pre><code class="language-bash">plot ... using &lt;x&gt;:&lt;z&gt;{:&lt;box_width&gt;{:&lt;label&gt;}} with boxplot
+</code></pre>
+<table><thead><tr><th>params</th><th>default</th><th>value</th><th>explanation</th></tr></thead><tbody>
+<tr><td><code>x</code></td><td>--</td><td>(double)x</td><td>データ (箱ひげ) を置く x 座標</td></tr>
+<tr><td><code>z</code></td><td>--</td><td>(double)z</td><td>データ (実数値)</td></tr>
+<tr><td><code>box_width</code></td><td>--</td><td>(double)</td><td>箱の横幅サイズ</td></tr>
+<tr><td><code>label</code></td><td>--</td><td>(string)</td><td>データのラベル. これを与えるとき <code>x</code> は無視される</td></tr>
+</tbody></table>
+<p>ラベルを与える時 <code>x</code> は無視されるが何か与える必要があるので, 仮にゼロを与えておく.</p>
+<p>先述のデータに合わせると次のようにすればよい.</p>
+<pre><code class="language-bash">using (0):2:(1):1 with boxplot
+</code></pre>
+<h2><a class="header" href="#example" id="example">Example</a></h2>
+<h3><a class="header" href="#data-datatxt" id="data-datatxt">Data (data.txt)</a></h3>
+<details><pre><code>
+Label1 1.0615736091746653
+Label1 0.9409952532221867
+Label1 1.021612466595744
+Label1 0.8935688060271614
+Label1 1.0224404474617517
+Label1 0.9661892724606262
+Label1 0.9978595814447482
+Label1 1.1127551356245484
+Label1 1.1016617034534295
+Label1 0.9210394458787583
+Label1 1.0820741675354117
+Label1 1.04330023111802
+Label1 1.0005150566113892
+Label1 1.1559580109911893
+Label1 1.1233029737728761
+Label1 0.9474749102980315
+Label1 1.0707941673561174
+Label1 0.9269711019325906
+Label1 0.9582840543918602
+Label1 1.0341070340590386
+Label1 0.9719420637089871
+Label1 1.0380944985473386
+Label1 0.9696442248316298
+Label1 0.9032356007739286
+Label1 0.9475300145319969
+Label1 1.1176373421060464
+Label1 1.1027176241074508
+Label1 0.933838661044742
+Label1 0.9320799966742921
+Label1 0.9881518086130608
+Label1 0.9452352866888151
+Label1 0.9855244566192534
+Label1 1.1529506550742137
+Label1 0.9655108140953337
+Label1 1.1077149125236252
+Label1 0.9545337303266723
+Label1 0.9864761998749835
+Label1 0.9992270973259703
+Label1 1.0003472317982158
+Label1 0.9669086586777813
+Label1 1.0106215356365427
+Label1 1.0694842820371275
+Label1 1.048621359612009
+Label1 0.9571141696805319
+Label1 1.033258266154869
+Label1 1.1092157291217004
+Label1 0.9772753273440217
+Label1 1.0516819827815074
+Label1 0.9930686178999505
+Label1 0.9695499340325655
+Label1 1.058463723596836
+Label1 1.0646466807321475
+Label1 1.039382795500945
+Label1 0.8016797870382525
+Label1 0.9551423217491737
+Label1 1.005006229693936
+Label1 1.0298153359978677
+Label1 0.9745127192018938
+Label1 1.06121120938568
+Label1 1.0172213952705071
+Label1 0.8577883940535215
+Label1 1.0730787104344803
+Label1 0.9353661239234157
+Label1 0.8878019375801003
+Label1 0.9200416472254476
+Label1 1.10202551417308
+Label1 0.9953501566212274
+Label1 0.9765505280492441
+Label1 0.9934534876777504
+Label1 0.9279105001877123
+Label1 0.9311577450839491
+Label1 1.0382565034812055
+Label1 1.0807674382580108
+Label1 1.1058527324445429
+Label1 0.9536624649476464
+Label1 1.090047310657586
+Label1 1.0342275655050817
+Label1 0.9010216243779239
+Label1 0.9849931815493391
+Label1 0.9455332189802604
+Label1 0.9366573719398363
+Label1 0.9792632919138815
+Label1 1.0673954929564329
+Label1 1.0788127015434597
+Label1 1.0401365015326332
+Label1 1.0149435226488914
+Label1 1.1044694815360434
+Label1 1.0710494392439736
+Label1 1.029971424957326
+Label1 0.907396727162235
+Label1 0.9368299278735874
+Label1 0.9375642076839391
+Label1 0.9230619994657261
+Label1 1.034461417462147
+Label1 0.9593967932528256
+Label1 0.9719254811281577
+Label1 1.0387483102509225
+Label1 0.9645077135736616
+Label1 0.9673363635776973
+Label1 1.083377921829951
+Label2 1.1140536481728907
+Label2 0.9654311468502879
+Label2 1.0072034351318897
+Label2 0.7645604617492925
+Label2 0.8392703482428308
+Label2 0.976250057889414
+Label2 0.5990641184705816
+Label2 0.8380012721558732
+Label2 1.0035631655139747
+Label2 1.1808497231287727
+Label2 0.8564673010352255
+Label2 0.9745542687000399
+Label2 0.8808016171091044
+Label2 0.8657582290481092
+Label2 1.01875121639354
+Label2 0.9488799185405365
+Label2 0.9700677235401467
+Label2 1.1620803369440535
+Label2 1.0900652181216892
+Label2 1.2796516746441746
+Label2 0.6920004621992418
+Label2 1.18769693522479
+Label2 0.8401843624543999
+Label2 0.999731755629597
+Label2 1.0379869812764944
+Label2 1.169339327212957
+Label2 1.1065612897474275
+Label2 0.9318951992749085
+Label2 0.9075922105985541
+Label2 0.9643943402394666
+Label2 1.103034508986277
+Label2 1.343461136243981
+Label2 0.6019797237657606
+Label2 0.7439376596771563
+Label2 0.8444287387561433
+Label2 1.3020239636373763
+Label2 0.7333487819632483
+Label2 1.1025954377572993
+Label2 0.7448648734731773
+Label2 0.9186726148655824
+Label2 1.2736324607754193
+Label2 0.738547568433712
+Label2 0.8997911309025082
+Label2 0.8183666890944847
+Label2 1.2305161819556596
+Label2 0.8431803874807591
+Label2 1.0421608735310546
+Label2 0.8703113248033603
+Label2 0.985872237356056
+Label2 1.0702074132990238
+Label2 0.736884590985943
+Label2 1.204378967522794
+Label2 1.0559821939077376
+Label2 1.2243650688093677
+Label2 0.8770786400785613
+Label2 0.9431412119605815
+Label2 1.1587470690948034
+Label2 1.0820150639003154
+Label2 1.068216370162204
+Label2 1.0862971817469724
+Label2 1.0602079089156522
+Label2 0.9741626353656363
+Label2 0.8514434676459397
+Label2 1.0422702760367746
+Label2 0.8342329643622799
+Label2 1.04598974412835
+Label2 1.118337840796598
+Label2 1.1541095322445498
+Label2 1.0671985326270028
+Label2 0.9921031013544135
+Label2 0.7991098543565645
+Label2 0.8025079639486893
+Label2 0.7873720427596531
+Label2 1.17644344114844
+Label2 0.9017761717860211
+Label2 1.2325537126446182
+Label2 1.3790767902319523
+Label2 0.834204048131308
+Label2 1.19896383864128
+Label2 1.284211366903643
+Label2 1.0026063764611894
+Label2 0.8227679581718057
+Label2 1.307136977957998
+Label2 1.0444638948513583
+Label2 1.3549943740829442
+Label2 1.0844549039775195
+Label2 1.317654569043726
+Label2 1.1063868777177488
+Label2 0.6493872700423977
+Label2 1.3594778312593627
+Label2 1.338062365553617
+Label2 1.0238162018568993
+Label2 0.9763703711732645
+Label2 1.1206954992017968
+Label2 1.1707303801478295
+Label2 1.1098209988634946
+Label2 1.0227536289855048
+Label2 0.8128615195559445
+Label2 0.9673353252194339
+Label2 1.2047888354760614
+Label3 0.5142551015781237
+Label3 0.4543057623585313
+Label3 0.4531749926703077
+Label3 0.48366076176550665
+Label3 0.4882834640187006
+Label3 0.4580007777054271
+Label3 0.4511591973406706
+Label3 0.4895097408191484
+Label3 0.5329419883612687
+Label3 0.5073465220061663
+Label3 0.553665903126604
+Label3 0.5125565716535394
+Label3 0.5064784727203651
+Label3 0.4915476117281144
+Label3 0.5199793237483948
+Label3 0.5533038298565817
+Label3 0.4596452171947456
+Label3 0.49234192751323397
+Label3 0.45981983116631875
+Label3 0.46678102685181655
+Label3 0.4675946531066316
+Label3 0.4791166260360197
+Label3 0.5339293985406127
+Label3 0.5044951008880407
+Label3 0.468439539866198
+Label3 0.5412932409671252
+Label3 0.5050151849881355
+Label3 0.457661329345758
+Label3 0.4801070293435854
+Label3 0.4895079651566656
+Label3 0.5307725497729896
+Label3 0.4770394661958832
+Label3 0.5458251641478383
+Label3 0.48719290103259233
+Label3 0.493902831741011
+Label3 0.4684886716663316
+Label3 0.5106616471106656
+Label3 0.43985179427762006
+Label3 0.5100289180635535
+Label3 0.49105881770638904
+Label3 0.5006929938151032
+Label3 0.4205157631344141
+Label3 0.4896354045961837
+Label3 0.5214170188862951
+Label3 0.4954576988782891
+Label3 0.5128906445762597
+Label3 0.4893522622337194
+Label3 0.5348450354119353
+Label3 0.540807960920562
+Label3 0.4783686743022514
+Label3 0.5354571299421252
+Label3 0.41804886150008075
+Label3 0.5008395090647499
+Label3 0.520352926239639
+Label3 0.46931543637664036
+Label3 0.4829886328506878
+Label3 0.5328436338152367
+Label3 0.5010186015477949
+Label3 0.46172801207972547
+Label3 0.49344169414465205
+Label3 0.47975646724709775
+Label3 0.47860712998302263
+Label3 0.47940533521467144
+Label3 0.5064141556425302
+Label3 0.5435954464135971
+Label3 0.4726682971819423
+Label3 0.4915653483459668
+Label3 0.5429375594647708
+Label3 0.5146961771791269
+Label3 0.4602116215820299
+Label3 0.48364222133902723
+Label3 0.4880924356997455
+Label3 0.463293654288834
+Label3 0.5290598992663654
+Label3 0.5053241702600492
+Label3 0.49873576395994607
+Label3 0.4856733190958129
+Label3 0.5095764551389661
+Label3 0.46860168864284146
+Label3 0.47401577020214813
+Label3 0.4769570659881741
+Label3 0.4675472572820617
+Label3 0.43982243691092143
+Label3 0.4785556880114518
+Label3 0.48797910910782355
+Label3 0.5352870207701941
+Label3 0.5448180495250096
+Label3 0.48879005713593154
+Label3 0.5100877092012684
+Label3 0.5184395026828384
+Label3 0.5121601200254514
+Label3 0.47587957491496463
+Label3 0.5055463257181718
+Label3 0.5127501923045343
+Label3 0.4758265536759175
+Label3 0.46611694850111995
+Label3 0.4785810300794278
+Label3 0.508939248784815
+Label3 0.5101959427210576
+Label3 0.5100732410148193
+Label1 0.16537364208595623
+Label1 0.6776651320647064
+Label1 0.5939587550913237
+Label1 0.5188986682173724
+</code></pre></details>
+<h3><a class="header" href="#source-code" id="source-code">Source Code</a></h3>
+<pre><code class="language-bash">set grid
+set ytics 0.1
+unset key
+plot 'data.txt' using (0):2:(0):1 with boxplot
+</code></pre>
+<h3><a class="header" href="#result" id="result">Result</a></h3>
+<p><img src="https://i.imgur.com/3YPqnHs.png" alt="" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../plot/histogram.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../plot/errorbars.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../plot/histogram.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../plot/errorbars.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
