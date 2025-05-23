@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>ヒートマップ - gnuplot-book</title>
+        <title>横向き棒グラフ - gnuplot-book</title>
 
 
         <!-- Custom HTML head -->
@@ -157,143 +157,68 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ヒートマップ-混合行列"><a class="header" href="#ヒートマップ-混合行列">ヒートマップ, 混合行列</a></h1>
+                        <h1 id="横向き棒グラフ"><a class="header" href="#横向き棒グラフ">横向き棒グラフ</a></h1>
+<h2 id="概要"><a class="header" href="#概要">概要</a></h2>
+<p>横向きの棒グラフを描画したい.
+通常の <code>with boxes</code> による棒グラフの描画は必ず縦向きであるが
+カテゴリカルデータであって x 軸にラベルを表示する場合,
+そのラベルが長いとラベル同士が重なったり見切れてしまい見づらい.
+y 軸にラベルを表示して棒グラフを横向き（水平方向）にすることでこれを解決する.</p>
+<p><img src="https://i.imgur.com/AtUimHD.png" alt="" /></p>
+<p>これを</p>
+<p><img src="https://i.imgur.com/CSRcoGq.png" alt="" /></p>
+<p>こうしたい.</p>
 <h2 id="参考"><a class="header" href="#参考">参考</a></h2>
 <ul>
-<li><a href="http://gnuplot.sourceforge.net/demo_svg/heatmaps.html">gnuplot demo script: heatmaps.dem</a></li>
+<li><a href="https://stackoverflow.com/questions/62848395/horizontal-bar-chart-in-gnuplot">Horizontal bar chart in gnuplot - Stack Overflow</a></li>
+<li>[boxxyerror - gnuplot](http://www.gnuplot.info/docs_6.0/loc4843.html</li>
 </ul>
-<h2 id="概要"><a class="header" href="#概要">概要</a></h2>
-<p>混合行列 (Confusion Matrix) などと呼ばれるあの表を色付きで図示する.
-色の濃さで数の大きさを表現する.</p>
-<p>上の参考リンクでは色が連続して変化するように中間値補完が為されてるが,
-私の知ってるgnuplotのバージョンではこれは再現できない.
-これをするには <code>pm3d</code> を使ったほうがいいと思う.</p>
-<p><img src="https://i.imgur.com/8FJ6kh9.png" alt="" /></p>
-<h2 id="方法"><a class="header" href="#方法">方法</a></h2>
-<h3 id="data-format"><a class="header" href="#data-format">Data Format</a></h3>
-<p>行列 (<code>matrix</code>) 形式でデータを与えることにする.
-すなわち, データ $z$ を $n$ 行 $m$ 列に並べたものをデータとする.</p>
-<pre><code class="language-dat">z11 z12 z13
-z21 z22 z23
-z31 z32 z33
-z41 z42 z43
+<h2 id="手法"><a class="header" href="#手法">手法</a></h2>
+<p>直接に横向きの棒グラフを描画する機能は gnuplot にはない.
+ただし比較的自由に矩形を描画することは <code>with boxxyerror</code> を使うことで可能.
+これを利用（悪用）して横向きの棒グラフを描画する.</p>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<h3 id="データ-datatxt"><a class="header" href="#データ-datatxt">データ (data.txt)</a></h3>
+<pre><code>apple 100
+banana 200
+candy 250
 </code></pre>
-<p>混合行列を図示する目的のためには行と列とに見出し (座標ではなくラベル) があるべきで,
-どうせならデータに含めたい.
-gnuplot の matrix data は行ごとのアイテム数は揃ってる必要があるので,
-0行目0列目にはダミーデータを入れた上で,
-1行目または1列目に見出しを入れられる.</p>
-<pre><code class="language-dat">xxxx Col1 Col2 Col3
-Row1  z11  z12  z13
-Row2  z21  z22  z23
-Row3  z31  z32  z33
-Row4  z41  z42  z43
-</code></pre>
-<h3 id="with-image"><a class="header" href="#with-image"><code>with image</code></a></h3>
-<pre><code class="language-bash">plot ... using &lt;x&gt;:&lt;y&gt;:&lt;z&gt; with image
-</code></pre>
-<div class="table-wrapper"><table><thead><tr><th style="text-align: left">params</th><th style="text-align: center">default</th><th style="text-align: left">value</th><th style="text-align: left">explanation</th></tr></thead><tbody>
-<tr><td style="text-align: left"><code>x</code></td><td style="text-align: center">--</td><td style="text-align: left">(int)</td><td style="text-align: left">データの $x$ 座標</td></tr>
-<tr><td style="text-align: left"><code>y</code></td><td style="text-align: center">--</td><td style="text-align: left">(int)</td><td style="text-align: left">データの $y$ 座標</td></tr>
-<tr><td style="text-align: left"><code>z</code></td><td style="text-align: center">--</td><td style="text-align: left">(double)</td><td style="text-align: left">データ. 対応する色が塗られる</td></tr>
-</tbody></table>
-</div>
-<p>ただし, matrix で読む場合は <code>x</code>, <code>y</code> は自動的に column 1, 2 として適切な値が入ってると見なしてよい.</p>
-<h3 id="columnheaders-rowheaders"><a class="header" href="#columnheaders-rowheaders"><code>columnheaders</code>, <code>rowheaders</code></a></h3>
-<pre><code class="language-bash">plot ... matrix column rowheaders
-</code></pre>
-<p>データの一行目, 一列目の文字列を見出しだと思って,
-二行目, 二列目以降のデータだけを使う.</p>
-<h3 id="example"><a class="header" href="#example">Example</a></h3>
-<pre><code class="language-bash">$data &lt;&lt; EOM
-xxxx Col1 Col2 Col3
-Row1    1    2    3
-Row2    2    4    6
-Row3    4    8   12
-Row4    8   16   24
-EOM
+<h3 id="source-code"><a class="header" href="#source-code">Source Code</a></h3>
+<pre><code class="language-bash">set terminal pngcairo size 800,600 enhanced font "Arial,12"
+set output 'test.png'
 
+# tics style
+set style line 11 lc rgb '#808080' lt 1 lw 3
+set border 0 back ls 11
+set tics out nomirror
+set style line 12 lc rgb '#808080' lt 0 lw 1
+
+# grid style
+set grid back ls 12
+
+# box style
+set style fill solid 0.5 border lc rgb '#55aaff'
+set style line 1 lc rgb '#77ccff'
+
+set yrange [0:*]
+set xrange [0:*]
+set style fill solid
 unset key
-set title 'Heatmap with image'
 
-set cbrange [0:30]  # the range of colorbox
-set palette cubehelix start -2 cycles 0 saturation 3 gamma 3 negative  # color scheme
+myBoxWidth = 0.9
+set offsets 0,0,0.5-myBoxWidth/2.,0.5
 
-plot $data matrix rowheaders columnheaders u 1:2:3 with image ,\
-        '' matrix rowheaders columnheaders u 1:2:(sprintf("%g", $3)) with labels
+plot 'data.txt' using (0.5*$2):0:(0.5*$2):(myBoxWidth/2.):ytic(1) with boxxyerror fillcolor ls 1
 </code></pre>
-<p><img src="https://i.imgur.com/L1QEXwC.png" alt="" /></p>
-<h2 id="格子線-gridline"><a class="header" href="#格子線-gridline">格子線 (gridline)</a></h2>
-<p><code>set grid</code> によってセル同士の境界に線を引きたい.
-デフォルトだとセルの色塗りは gridline の後に行われて上書きされるので <code>set grid front</code> とする.
-<code>lt</code> や <code>lc</code>, <code>lw</code> で線のスタイルは調整する.</p>
-<pre><code class="language-bash">$data &lt;&lt; EOD
-X a b c d e
-A 0.0 -0.06 -0.25 -0.56 -1.0
-B 0.11 0.04 -0.13 -0.45 -0.88
-C 0.44 0.38 0.19 -0.11 -0.55
-D 1.0 0.93 0.75 0.43 0.0
-E 1.77 1.71 1.52 1.21 0.77
-EOD
-
-set grid front lw 1.5 lt -1 lc rgb 'white'
-plot $data matrix rowheaders columnheaders w image not
-</code></pre>
-<p><img src="https://i.imgur.com/08eJtZ7.png" alt="" /></p>
-<p><code>xy</code> に gridline を引いてもちょうど 0.5 ずれた, セルの真ん中に引くようになってしまう.
-なぜならセルはちょうど格子点 \( (x, y) \) に対して, \( (x-0.5, y-0.5) \ldots (x+0.5, y+0.5) \)
-という矩形領域を占めているためである.</p>
-<p>ちょうど 0.5 ずらした格子線を手に入れるために小目盛り (minor tics) を利用する.
-ただし <code>xy</code> の大目盛りがラベルのために使われている (数値で指定されていない) ときは小目盛りは使えないことになっているので,
-<code>x2y2</code> を使う.</p>
-<p>まず <code>x2, y2</code> を宣言し <code>set link</code> で <code>xy</code> と同期させる.
-これに小目盛り <code>mx2, my2</code> を <code>interval=2</code> で宣言することで, ちょうど半分に分割する目盛りを作れる.
-<code>grid</code> の引数に <code>mx2tics, my2tics</code> を追加すればよい.</p>
-<p>変更点だけ書き出すと次の通り.</p>
-<pre><code class="language-diff">+set x2tics
-+set y2tics
-+set link x2
-+set link y2
-+set mx2tics 2
-+set my2tics 2
--set grid front lw 1.5 lt -1 lc rgb 'white'
-+set grid front mx2tics my2tics lw 1.5 lt -1 lc rgb 'white'
-</code></pre>
-<p>最後に余計なラベルや刻み線を消す処理を追加して結局</p>
-<pre><code class="language-bash">$data &lt;&lt; EOD
-X a b c d e
-A 0.0 -0.06 -0.25 -0.56 -1.0
-B 0.11 0.04 -0.13 -0.45 -0.88
-C 0.44 0.38 0.19 -0.11 -0.55
-D 1.0 0.93 0.75 0.43 0.0
-E 1.77 1.71 1.52 1.21 0.77
-EOD
-
-set xtics scale 0  # 刻み線の長さ
-set ytics scale 0
-set x2tics format '' scale 0.01  # こちらもゼロにしたいがすると格子線まで消えてしまうので
-set y2tics format '' scale 0.01
-set link x2
-set link y2
-set mx2tics 2
-set my2tics 2
-set grid front mx2tics my2tics lw 1.5 lt -1 lc rgb 'white'
-plot $data matrix rowheaders columnheaders w image not
-</code></pre>
-<p><img src="https://i.imgur.com/LFQu9gC.png" alt="" /></p>
-<p>となった.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../plot/contour.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../plot/heatmap.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../plot/bar-horizontal.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -301,13 +226,10 @@ plot $data matrix rowheaders columnheaders w image not
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../plot/contour.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../plot/heatmap.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../plot/bar-horizontal.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

@@ -21,3 +21,4 @@
     - [陰関数](plot/implicit.md)
     - [等高線](plot/contour.md)
     - [ヒートマップ](plot/heatmap.md)
+    - [横向き棒グラフ](plot/bar-horizontal.md)
