@@ -1251,7 +1251,7 @@ y 軸にラベルを表示して棒グラフを横向き（水平方向）にす
 <h2 id="参考-3"><a class="header" href="#参考-3">参考</a></h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/62848395/horizontal-bar-chart-in-gnuplot">Horizontal bar chart in gnuplot - Stack Overflow</a></li>
-<li>[boxxyerror - gnuplot](http://www.gnuplot.info/docs_6.0/loc4843.html</li>
+<li><a href="http://www.gnuplot.info/docs_6.0/loc4843.html">boxxyerror - gnuplot</a></li>
 </ul>
 <h2 id="手法-3"><a class="header" href="#手法-3">手法</a></h2>
 <p>直接に横向きの棒グラフを描画する機能は gnuplot にはない.
@@ -1308,22 +1308,6 @@ plot 'data.txt' using (0.5*$2):0:(0.5*$2):(myBoxWidth/2.):ytic(1) with boxxyerro
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
