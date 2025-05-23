@@ -19,7 +19,7 @@ y 軸にラベルを表示して棒グラフを横向き（水平方向）にす
 ## 参考
 
 - [Horizontal bar chart in gnuplot - Stack Overflow](https://stackoverflow.com/questions/62848395/horizontal-bar-chart-in-gnuplot)
-- [boxxyerror - gnuplot](http://www.gnuplot.info/docs_6.0/loc4843.html
+- [boxxyerror - gnuplot](http://www.gnuplot.info/docs_6.0/loc4843.html)
 
 ## 手法
 
